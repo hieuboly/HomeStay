@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt phòng thành công</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container nav">
+        <div class="brand"><span class="brand-mark">S</span><span>StayNest</span></div>
+    </div>
+</header>
+
+<main class="container page-shell">
+    <div class="success-card card-panel">
+        <div class="success-icon">✓</div>
+        <h1>Đặt phòng thành công</h1>
+        <p>Chúng tôi đã ghi nhận yêu cầu đặt phòng của bạn.</p>
+        <div class="success-details">
+            <p><strong>Mã đặt phòng:</strong> <span th:text="${booking.id}">#001</span></p>
+            <p><strong>Phòng:</strong> <span th:text="${booking.room.title}">Villa</span></p>
+            <p><strong>Ngày nhận:</strong> <span th:text="${booking.checkInDate}">2026-10-10</span></p>
+            <p><strong>Ngày trả:</strong> <span th:text="${booking.checkOutDate}">2026-10-12</span></p>
+            <p><strong>Tổng tiền:</strong> <span th:text="${#numbers.formatDecimal(booking.totalPrice, 0, 'COMMA', 0, 'POINT') + 'đ'}">1.200.000đ</span></p>
+        </div>
+        <a class="primary-btn" href="/">Về trang chủ</a>
+    </div>
+</main>
+</body>
+</html>

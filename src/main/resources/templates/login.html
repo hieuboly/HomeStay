@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập - StayNest</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-body">
+<div class="auth-shell">
+    <div class="auth-card">
+        <h2>Đăng nhập</h2>
+        <p class="auth-subtitle">Chào mừng bạn quay lại StayNest</p>
+
+        <div th:if="${param.registered}" class="message success-message">Đăng ký thành công! Hãy đăng nhập.</div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="field-group">
+                <label for="username">Tên đăng nhập</label>
+                <input id="username" name="username" type="text" required>
+            </div>
+            <div class="field-group">
+                <label for="password">Mật khẩu</label>
+                <input id="password" name="password" type="password" required>
+            </div>
+            <button type="submit" class="primary-btn auth-btn">Đăng nhập</button>
+        </form>
+
+        <p class="auth-footer">Chưa có tài khoản? <a href="/register">Đăng ký ngay</a></p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayNest | Homestay Booking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: siteHeader}"></div>
+
+<main>
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <span class="eyebrow">Trải nghiệm nghỉ dưỡng đáng nhớ</span>
+                <h1>Chọn homestay đẹp, ấm cúng và gần gũi với thiên nhiên.</h1>
+                <p>
+                    Khám phá các căn homestay sang trọng, giá tốt và tiện nghi đầy đủ cho kỳ nghỉ gia đình,
+                    cặp đôi hoặc chuyến đi công tác của bạn.
+                </p>
+                <div class="hero-actions">
+                    <a class="primary-btn" href="/rooms">Khám phá ngay</a>
+                    <a class="secondary-btn" href="/rooms">Tìm hiểu thêm</a>
+                </div>
+                <ul class="hero-stats">
+                    <li><strong>1.2k+</strong><span>Khách hàng hài lòng</span></li>
+                    <li><strong>350+</strong><span>Homestay trên toàn quốc</span></li>
+                    <li><strong>4.9/5</strong><span>Đánh giá trung bình</span></li>
+                </ul>
+            </div>
+
+            <div class="hero-panel">
+                <div class="booking-card">
+                    <div class="card-header">
+                        <span>Đặt phòng</span>
+                        <span class="badge">Hot</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80" alt="Homestay premium">
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h3>Villa Sunset View</h3>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                        <p>Đà Lạt • 2 phòng ngủ • 4 khách</p>
+                        <div class="card-foot">
+                            <strong>1.200.000đ</strong>
+                            <span>/đêm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="search-panel">
+        <div class="container search-box">
+            <div class="field">
+                <label>Địa điểm</label>
+                <input type="text" value="Đà Lạt, Nha Trang, Hội An" />
+            </div>
+            <div class="field">
+                <label>Ngày đến</label>
+                <input type="date" />
+            </div>
+            <div class="field">
+                <label>Ngày đi</label>
+                <input type="date" />
+            </div>
+            <div class="field">
+                <label>Khách</label>
+                <input type="text" value="2 người" />
+            </div>
+            <button class="primary-btn">Tìm phòng</button>
+        </div>
+    </section>
+
+    <section class="benefits container" id="experiences">
+        <div class="section-heading">
+            <span class="eyebrow">Lợi ích</span>
+            <h2>Vì sao khách hàng lựa chọn StayNest</h2>
+        </div>
+        <div class="benefit-grid">
+            <article>
+                <div class="icon">🏡</div>
+                <h3>Không gian riêng tư</h3>
+                <p>Homestay được thiết kế chỗ ở riêng biệt, ấm cúng thích hợp cho nghỉ dưỡng dài ngày.</p>
+            </article>
+            <article>
+                <div class="icon">💬</div>
+                <h3>Hỗ trợ liên tục</h3>
+                <p>Đội ngũ hỗ trợ 24/7 đảm bảo việc đặt phòng và phản hồi nhanh chóng.</p>
+            </article>
+            <article>
+                <div class="icon">💸</div>
+                <h3>Giá cả minh bạch</h3>
+                <p>Không phát sinh phí ẩn, bạn biết chắc chi phí trước khi thanh toán.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="rooms container" id="rooms">
+        <div class="section-heading inline-heading">
+            <div>
+                <span class="eyebrow">Phòng nổi bật</span>
+                <h2>Những lựa chọn được yêu thích nhất</h2>
+            </div>
+            <a href="/rooms" class="link-btn">Xem tất cả</a>
+        </div>
+
+        <div class="room-grid">
+            <article class="room-card" th:each="room : ${featuredRooms}">
+                <img th:src="${room.imageUrl}" th:alt="${room.title}">
+                <div class="room-card-body">
+                    <div class="room-topline">
+                        <span th:text="${room.city}">Đà Lạt</span>
+                        <span class="stars">★ <span th:text="${room.rating}">5</span></span>
+                    </div>
+                    <h3 th:text="${room.title}">Villa Sunset View</h3>
+                    <p th:text="${room.description}">Mô tả phòng</p>
+                    <div class="room-meta">
+                        <span th:text="${room.maxGuests + ' khách'}">4 khách</span>
+                        <span th:text="${room.bedrooms + ' phòng ngủ'}">2 phòng ngủ</span>
+                        <span th:text="${room.bathrooms + ' phòng tắm'}">2 phòng tắm</span>
+                    </div>
+                    <div class="room-footer">
+                        <div>
+                            <strong th:text="${#numbers.formatDecimal(room.pricePerNight, 0, 'COMMA', 0, 'POINT') + 'đ'}">1.200.000đ</strong>
+                            <span>/đêm</span>
+                        </div>
+                        <a th:href="@{/rooms/{id}(id=${room.id})}">Đặt phòng</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="reviews container" id="reviews">
+        <div class="section-heading">
+            <span class="eyebrow">Khách hàng nói gì</span>
+            <h2>Đánh giá từ những người đã trải nghiệm</h2>
+        </div>
+        <div class="review-grid">
+            <article>
+                <p>“Chỗ ở rất sạch, không gian đẹp và gần trung tâm. Chúng tôi sẽ quay lại trong lần tới.”</p>
+                <div class="reviewer">
+                    <strong>Nguyễn Thị Lan</strong>
+                    <span>Hội An</span>
+                </div>
+            </article>
+            <article>
+                <p>“Dịch vụ hỗ trợ rất nhiệt tình, phòng đúng với hình ảnh và rất ấm cúng.”</p>
+                <div class="reviewer">
+                    <strong>Trần Minh</strong>
+                    <span>Đà Nẵng</span>
+                </div>
+            </article>
+            <article>
+                <p>“Homestay có view đẹp, tiện nghi đầy đủ và giá hợp lý cho gia đình.”</p>
+                <div class="reviewer">
+                    <strong>Phạm Anh</strong>
+                    <span>Hà Nội</span>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <div>
+            <div class="brand footer-brand">
+                <span class="brand-mark">S</span>
+                <span>StayNest</span>
+            </div>
+            <p>Đặt phòng homestay dễ dàng, tiện lợi và đáng tin cậy.</p>
+        </div>
+        <div>
+            <h4>Liên hệ</h4>
+            <p>support@staynest.vn</p>
+            <p>+84 987 654 321</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách phòng - StayNest</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: siteHeader}"></div>
+
+<main class="page-shell">
+    <section class="container section-pad">
+        <div class="section-heading">
+            <span class="eyebrow">Tất cả phòng</span>
+            <h2>Khám phá lựa chọn homestay phù hợp với bạn</h2>
+        </div>
+        <div class="room-grid room-grid-wide">
+            <article class="room-card" th:each="room : ${rooms}">
+                <img th:src="${room.imageUrl}" th:alt="${room.title}">
+                <div class="room-card-body">
+                    <div class="room-topline">
+                        <span th:text="${room.city}">Đà Lạt</span>
+                        <span class="stars">★ <span th:text="${room.rating}">5</span></span>
+                    </div>
+                    <h3 th:text="${room.title}">Villa Sunset View</h3>
+                    <p th:text="${room.description}">Mô tả</p>
+                    <div class="room-meta">
+                        <span th:text="${room.maxGuests + ' khách'}">4 khách</span>
+                        <span th:text="${room.bedrooms + ' phòng ngủ'}">2 phòng ngủ</span>
+                        <span th:text="${room.bathrooms + ' phòng tắm'}">2 phòng tắm</span>
+                    </div>
+                    <div class="room-footer">
+                        <div>
+                            <strong th:text="${#numbers.formatDecimal(room.pricePerNight, 0, 'COMMA', 0, 'POINT') + 'đ'}">1.200.000đ</strong>
+                            <span>/đêm</span>
+                        </div>
+                        <a th:href="@{/rooms/{id}(id=${room.id})}">Xem chi tiết</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+</body>
+</html>

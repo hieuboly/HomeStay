@@ -1,0 +1,33 @@
+<header class="topbar" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        th:fragment="siteHeader">
+    <div class="container nav">
+        <a class="brand" th:href="@{/}">
+            <span class="brand-mark">S</span>
+            <span>StayNest</span>
+        </a>
+        <nav sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/admin}">Dashboard quản trị</a>
+            <a th:href="@{/admin#rooms}">Quản lý phòng</a>
+            <a th:href="@{/admin#bookings}">Đặt phòng</a>
+        </nav>
+        <nav sec:authorize="!hasRole('ADMIN')">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/rooms}">Phòng</a>
+            <a th:href="@{/#experiences}">Trải nghiệm</a>
+            <a th:href="@{/#reviews}">Đánh giá</a>
+        </nav>
+        <div class="nav-actions" sec:authorize="isAnonymous()">
+            <a class="link-btn" th:href="@{/login}">Đăng nhập</a>
+            <a class="primary-btn" th:href="@{/register}">Đăng ký</a>
+        </div>
+        <div class="nav-actions" sec:authorize="isAuthenticated()">
+            <a class="link-btn" sec:authorize="hasRole('USER')" th:href="@{/profile}">Hồ sơ</a>
+            <a class="link-btn" sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">Quản trị</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="secondary-btn">Đăng xuất</button>
+            </form>
+            <a class="primary-btn" sec:authorize="!hasRole('ADMIN')" th:href="@{/rooms}">Đặt ngay</a>
+        </div>
+    </div>
+</header>

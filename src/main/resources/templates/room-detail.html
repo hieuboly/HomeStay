@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${room.title} + ' - StayNest'">Room Detail</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: siteHeader}"></div>
+
+<main class="container page-shell">
+    <div class="detail-layout">
+        <div class="detail-image-wrap">
+            <img th:src="${room.imageUrl}" th:alt="${room.title}">
+        </div>
+        <div class="detail-content">
+            <span class="eyebrow" th:text="${room.city}">Đà Lạt</span>
+            <h1 th:text="${room.title}">Villa Sunset View</h1>
+            <div class="stars large-stars">★★★★★</div>
+            <p class="detail-description" th:text="${room.description}">Mô tả</p>
+            <div class="room-meta detail-meta">
+                <span th:text="${room.maxGuests + ' khách'}">4 khách</span>
+                <span th:text="${room.bedrooms + ' phòng ngủ'}">2 phòng ngủ</span>
+                <span th:text="${room.bathrooms + ' phòng tắm'}">2 phòng tắm</span>
+            </div>
+            <div class="detail-price">
+                <strong th:text="${#numbers.formatDecimal(room.pricePerNight, 0, 'COMMA', 0, 'POINT') + 'đ'}">1.200.000đ</strong>
+                <span>/đêm</span>
+            </div>
+            <div class="detail-actions">
+                <a class="primary-btn" th:href="@{/booking/{id}(id=${room.id})}">Đặt phòng ngay</a>
+                <a class="secondary-btn" href="/rooms">Xem tất cả phòng</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

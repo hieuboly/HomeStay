@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - StayNest</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: siteHeader}"></div>
+
+<main class="container page-shell admin-shell">
+    <section id="rooms">
+        <div class="section-heading">
+            <span class="eyebrow">Quản lý</span>
+            <h2>Thêm phòng mới</h2>
+        </div>
+        <form th:action="@{/admin/rooms}" method="post" class="admin-form card-panel">
+            <div class="two-col-grid">
+                <div class="field-group"><label>Tiêu đề</label><input name="title" required></div>
+                <div class="field-group"><label>Thành phố</label><input name="city" required></div>
+                <div class="field-group"><label>Giá / đêm</label><input type="number" name="pricePerNight" required></div>
+                <div class="field-group"><label>Số khách tối đa</label><input type="number" name="maxGuests" required></div>
+                <div class="field-group"><label>Phòng ngủ</label><input type="number" name="bedrooms" required></div>
+                <div class="field-group"><label>Phòng tắm</label><input type="number" name="bathrooms" required></div>
+                <div class="field-group"><label>Đánh giá</label><input type="number" name="rating" min="1" max="5" required></div>
+                <div class="field-group"><label>Ảnh</label><input name="imageUrl" required></div>
+                <div class="field-group full-width"><label>Mô tả</label><textarea name="description" rows="4" required></textarea></div>
+            </div>
+            <button class="primary-btn" type="submit">Lưu phòng</button>
+        </form>
+    </section>
+
+    <section class="admin-list" id="bookings">
+        <div class="section-heading">
+            <span class="eyebrow">Booking</span>
+            <h2>Danh sách đặt phòng</h2>
+        </div>
+        <div class="table-wrap card-panel">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Khách</th>
+                    <th>Phòng</th>
+                    <th>Ngày</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="booking : ${bookings}">
+                    <td th:text="${booking.id}">1</td>
+                    <td th:text="${booking.customerName}">Tên</td>
+                    <td th:text="${booking.room.title}">Phòng</td>
+                    <td th:text="${booking.checkInDate + ' → ' + booking.checkOutDate}">Ngày</td>
+                    <td th:text="${#numbers.formatDecimal(booking.totalPrice, 0, 'COMMA', 0, 'POINT') + 'đ'}">0đ</td>
+                    <td th:text="${booking.status}">PENDING</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>
